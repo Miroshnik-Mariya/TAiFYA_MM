@@ -29,250 +29,262 @@ namespace Analyzator
 
             while (tek_sost != state.Finish && tek_sost != state.E && startPos < source.Length) // основной цикл 
             {
-                
-                    cur = source[startPos++];
-                    switch (tek_sost)
-                    {
-                        //FORMAT
-                        case state.S:
-                            {
-                                if (cur == ' ')
-                                {
-                                    // Пропускаем пробел
-                                }
-                                else if (cur == 'f')
-                                {
-                                    tek_sost = state.C1A;
-                                }
-                                else
-                                {
-                                    throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: F \nВ слове: FORMAT");
-                                }
-                            }
-                            break;
-                        case state.C1A:
-                            {
-                                if (cur == 'o')
-                                {
-                                    tek_sost = state.C1B;
-                                }
-                                else
-                                {
-                                    throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: O \nВ слове: FORMAT");
-                                }
-                            }
-                            break;
-                        case state.C1B:
-                            {
-                                if (cur == 'r')
-                                {
-                                    tek_sost = state.C1C;
-                                }
-                                else
-                                {
-                                    throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: R \nВ слове: FORMAT");
-                                }
-                            }
-                            break;
-                        case state.C1C:
-                            {
-                                if (cur == 'm')
-                                {
-                                    tek_sost = state.C1D;
-                                }
-                                else
-                                {
-                                    throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: M \nВ слове: FORMAT");
-                                }
-                            }
-                            break;
-                        case state.C1D:
-                            {
-                                if (cur == 'a')
-                                {
-                                    tek_sost = state.C1E;
-                                }
-                                else
-                                {
-                                    throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: A \nВ слове: FORMAT");
-                                }
-                            }
-                            break;
-                        case state.C1E:
-                            {
-                                if (cur == 't')
-                                {
-                                    tek_sost = state.B;
-                                }
-                                else
-                                {
-                                    throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: T \nВ слове: FORMAT");
-                                }
-                            }
-                            break;
 
-                        //обязательный пробел 
-                        case state.B:
+                cur = source[startPos++];
+                switch (tek_sost)
+                {
+                    //FORMAT
+                    case state.S:
+                        {
+                            if (cur == ' ')
                             {
-                                if (cur == ' ')
-                                {
-                                    tek_sost = state.C;
-                                }
-                                else
-                                {
-                                    throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидается пробел после 'FORMAT'");
-                                }
+                                // Пропускаем пробел
                             }
-                            break;
-
-                        //открывающая круглая скобка + обработка необязательных пробелов 
-                        case state.C:
+                            else if (cur == 'f')
                             {
-                                if (cur == ' ')
-                                {
-                                    // Пропускаем пробелы
-                                }
-                                else if (cur == '(')
-                                {
-                                    tek_sost = state.C2D;
-                                }
-                                else
-                                {
-                                    throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: (");
-                                }
+                                tek_sost = state.C1A;
                             }
-                            break;
-
-                        case state.C2D:
+                            else
                             {
-                                if (cur == ' ')
-                                {
-                                    //пропускаем пробелы
-                                }
+                                throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: F \nВ слове: FORMAT");
+                            }
+                        }
+                        break;
+                    case state.C1A:
+                        {
+                            if (cur == 'o')
+                            {
+                                tek_sost = state.C1B;
+                            }
+                            else
+                            {
+                                throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: O \nВ слове: FORMAT");
+                            }
+                        }
+                        break;
+                    case state.C1B:
+                        {
+                            if (cur == 'r')
+                            {
+                                tek_sost = state.C1C;
+                            }
+                            else
+                            {
+                                throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: R \nВ слове: FORMAT");
+                            }
+                        }
+                        break;
+                    case state.C1C:
+                        {
+                            if (cur == 'm')
+                            {
+                                tek_sost = state.C1D;
+                            }
+                            else
+                            {
+                                throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: M \nВ слове: FORMAT");
+                            }
+                        }
+                        break;
+                    case state.C1D:
+                        {
+                            if (cur == 'a')
+                            {
+                                tek_sost = state.C1E;
+                            }
+                            else
+                            {
+                                throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: A \nВ слове: FORMAT");
+                            }
+                        }
+                        break;
+                    case state.C1E:
+                        {
+                            if (cur == 't')
+                            {
+                                tek_sost = state.B;
+                            }
+                            else
+                            {
+                                throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: T \nВ слове: FORMAT");
+                            }
+                        }
+                        break;
 
-                                //ввели первую цифру
-                                //числоХ
-                                else if (cur.IsNumber())
+                    //обязательный пробел 
+                    case state.B:
+                        {
+                            if (cur == ' ')
+                            {
+                                tek_sost = state.C;
+                            }
+                            else
+                            {
+                                throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидается пробел после 'FORMAT'");
+                            }
+                        }
+                        break;
+
+                    //открывающая круглая скобка + обработка необязательных пробелов 
+                    case state.C:
+                        {
+                            if (cur == ' ')
+                            {
+                                // Пропускаем пробелы
+                            }
+                            else if (cur == '(')
+                            {
+                                tek_sost = state.C2D;
+                            }
+                            else
+                            {
+                                throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: (");
+                            }
+                        }
+                        break;
+
+                    case state.C2D:
+                        {
+                            if (cur == ' ')
+                            {
+                                //пропускаем пробелы
+                            }
+
+                            //ввели первую цифру
+                            //числоХ
+                            else if (cur.IsNumber())
+                            {
+                                if (cur != '0')
                                 {
-                                    if (cur != '0')
+                                    main_const = "";
+                                    while (cur.IsNumber() && startPos < source.Length + 1)
                                     {
-                                        main_const = "";
-                                        while (cur.IsNumber() && startPos < source.Length + 1)
-                                        {
-                                            main_const += cur;
-                                            cur = source[startPos++];
+                                        main_const += cur;
+                                        cur = source[startPos++];
 
-                                        }
-                                        cur = source[startPos--];
-                                        if (Convert.ToInt32(main_const) > 0 && Convert.ToInt32(main_const) < 257)
-                                        {
-                                            tek_sost = state.X;
-                                        }
-                                        else
-                                        {
-                                            throw new ArgumentException($"Семантическая ошибка \n\nВведенное число не входит в диапазон 1...256");
-                                        }
-                                        //cur = source[startPos++];
                                     }
-
+                                    cur = source[startPos--];
+                                    if (Convert.ToInt32(main_const) > 0 && Convert.ToInt32(main_const) < 257)
+                                    {
+                                        tek_sost = state.X;
+                                    }
                                     else
                                     {
-                                        throw new ArgumentException($"Семантическая ошибка \n\nОжидалось 1...9");
+                                        throw new ArgumentException($"Семантическая ошибка \n\nВведенное число не входит в диапазон 1...256");
                                     }
-                                }
-
-                                //текст 
-                                else if (cur == '\'')
-                                {
-
-                                }
-
-                                //i 
-                                else if (cur == 'i')
-                                {
-
-                                }
-
-                                //f 
-                                else if (cur == 'f')
-                                {
-
-                                }
-
-                                //перевод на новую строку  
-                                else if (cur == '/')
-                                {
-
+                                    //cur = source[startPos++];
                                 }
 
                                 else
                                 {
-                                    throw new ArgumentException($"Введен некорректный символ: {cur}. Ознакомьтесь с разделом 'Формат'");
+                                    throw new ArgumentException($"Семантическая ошибка \n\nОжидалось 1...9");
                                 }
                             }
-                            break;
 
-                        case state.X:
+                            //текст 
+                            else if (cur == '\'')
                             {
-                                if (cur == ' ')
-                                {
-                                    // Пропускаем пробелы
-                                }
-                                else if (cur == 'x')
-                                {
-                                    tek_sost = state.EndElement;
-                                    for (int i = 0; i < Convert.ToInt32(main_const); i++)
-                                    {
-                                        resStr += "_ ";
-                                    }
-                                }
-                                else
-                                {
-                                    // cur = source[startPos--];
-                                    throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: X");
-                                    // cur = source[startPos++];
-                                }
-                            }
-                            break;
 
-                        case state.EndElement:
+                            }
+
+                            //i 
+                            else if (cur == 'i')
                             {
-                                if (cur == ' ')
-                                {
-                                    // Пропускаем пробелы
-                                }
 
-                                else if (cur == ')')
-                                {
-                                    tek_sost = state.Finish;
-                                    end = true;
-                                }
-
-                                else if (cur == ',')
-                                {
-                                    tek_sost = state.C2D;
-                                }
-
-                                else { throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: ) или ,"); }
                             }
-                            break;
+
+                            //f 
+                            else if (cur == 'f')
+                            {
+
+                            }
+
+                            //перевод на новую строку  
+                            else if (cur == '/')
+                            {
+
+                            }
+
+                            else
+                            {
+                                throw new ArgumentException($"Введен некорректный символ: {cur}. Ознакомьтесь с разделом 'Формат'");
+                            }
+                        }
+                        break;
+
+                    case state.X:
+                        {
+                            if (cur == ' ')
+                            {
+                                // Пропускаем пробелы
+                            }
+                            else if (cur == 'x')
+                            {
+                                tek_sost = state.EndElement;
+                                for (int i = 0; i < Convert.ToInt32(main_const); i++)
+                                {
+                                    resStr += "_ ";
+                                }
+                            }
+                            else
+                            {
+                                // cur = source[startPos--];
+                                throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: X");
+                                // cur = source[startPos++];
+                            }
+                        }
+                        break;
+
+                    case state.EndElement:
+                        {
+                            if (cur == ' ')
+                            {
+                                // Пропускаем пробелы
+                            }
+
+                            else if (cur == ')')
+                            {
+                                tek_sost = state.Finish;
+                                end = true;
+                            }
+
+                            else if (cur == ',')
+                            {
+                                tek_sost = state.C2D;
+                            }
+
+                            else { throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: ) или ,"); }
+                        }
+                        break;
 
 
 
-                    }
-
-                
-
+                }
 
 
 
             }
 
+            if (tek_sost == state.Finish)
+            {
+                return resStr;
+            }
 
+            else
+            {
+                throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ. \n\nОжидалось: )");
 
-
-
+            }
             return resStr;
+
+
+            
+
+
+
+
+
+            
         }
     }
 }

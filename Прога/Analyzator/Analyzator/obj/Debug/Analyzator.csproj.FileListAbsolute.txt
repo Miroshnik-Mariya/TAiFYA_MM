@@ -39,3 +39,13 @@ E:\Прога новая версия\Прога\Analyzator\Analyzator\obj\Debug
 E:\Прога новая версия\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.csproj.CoreCompileInputs.cache
 E:\Прога новая версия\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.exe
 E:\Прога новая версия\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.pdb
+C:\Users\79033\OneDrive\Документы\GitHub\TAiFYA_MM\Прога\Analyzator\Analyzator\bin\Debug\Analyzator.exe.config
+C:\Users\79033\OneDrive\Документы\GitHub\TAiFYA_MM\Прога\Analyzator\Analyzator\bin\Debug\Analyzator.exe
+C:\Users\79033\OneDrive\Документы\GitHub\TAiFYA_MM\Прога\Analyzator\Analyzator\bin\Debug\Analyzator.pdb
+C:\Users\79033\OneDrive\Документы\GitHub\TAiFYA_MM\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.csproj.AssemblyReference.cache
+C:\Users\79033\OneDrive\Документы\GitHub\TAiFYA_MM\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.Form1.resources
+C:\Users\79033\OneDrive\Документы\GitHub\TAiFYA_MM\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.Properties.Resources.resources
+C:\Users\79033\OneDrive\Документы\GitHub\TAiFYA_MM\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.csproj.GenerateResource.cache
+C:\Users\79033\OneDrive\Документы\GitHub\TAiFYA_MM\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.csproj.CoreCompileInputs.cache
+C:\Users\79033\OneDrive\Документы\GitHub\TAiFYA_MM\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.exe
+C:\Users\79033\OneDrive\Документы\GitHub\TAiFYA_MM\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.pdb
