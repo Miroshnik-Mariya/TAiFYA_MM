@@ -184,25 +184,25 @@ namespace Analyzator
                             //текст 
                             else if (cur == '\'')
                             {
-
+                                tek_sost = state.T;
                             }
 
                             //i 
                             else if (cur == 'i')
                             {
-
+                                tek_sost = state.I; 
                             }
 
                             //f 
                             else if (cur == 'f')
                             {
-
+                                tek_sost = state.F; 
                             }
 
                             //перевод на новую строку  
                             else if (cur == '/')
                             {
-
+                                tek_sost = state.Enter; 
                             }
 
                             else
@@ -234,6 +234,344 @@ namespace Analyzator
                             }
                         }
                         break;
+
+
+                        //текст 
+                    case state.T:
+                        {
+                            string checkStr = "";
+
+                            if (cur == ' ')
+                            {
+                                //пропускаем пробел 
+                            }
+
+                            else if (cur.IsLetter())
+                            {
+                                while (cur.IsLetter() && startPos < source.Length + 1 && cur != '\'' || cur == ' ')
+                                {
+                                    if (startPos < source.Length)
+                                    {
+                                        if (cur == ' ')
+                                        {
+                                            cur = source[startPos++];
+                                        }
+                                        else
+                                        {
+                                            checkStr += cur;
+                                            cur = source[startPos++];
+                                        }
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+
+                                if (cur == '\'') 
+                                {
+                                    tek_sost = state.EndElement;
+                                }
+                                else 
+                                {
+                                    throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ. \n\nОжидалась закрывающая кавычка \'");
+                                }
+
+                                cur = source[startPos--];
+                                if (checkStr.Length < 51)
+                                {
+                                    resStr += checkStr;
+                                }
+                                else
+                                {
+                                    throw new ArgumentException($"Семантическая ошибка: \n\n длина текста не может быть более 50 символов");
+                                }
+                                cur = source[startPos++];
+                            }
+
+                            else
+                            {
+                                throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидался символ Юникода");
+                            }
+
+                        }
+                        break;
+
+                        //Iчисло 
+                    case state.I: 
+                        {
+                            if (cur == ' ')
+                            {
+                                //пропускаем пробел 
+                            }
+
+                            else if (cur.IsNumber()) //ввели первую цифру 
+                            {
+                                //ЗАПИСЫВАЕМ КОНСТАНТУ
+                                if (cur != '0')
+                                {
+                                    main_const = "";
+
+                                    while (cur.IsNumber() && startPos < source.Length + 1)
+                                    {
+                                        main_const += cur;
+                                        cur = source[startPos++];
+                                    }
+
+                                    if (Convert.ToInt32(main_const) > 0 && Convert.ToInt32(main_const) < 257)
+                                    {
+                                        resStr += "F";
+
+                                        for (int i = 0; i < Convert.ToInt32(main_const) - 1; i++)
+                                        {
+                                            resStr += "I";
+                                        }
+
+                                        tek_sost = state.EndElement;
+                                        if (startPos > 0)
+                                        {
+                                            startPos -= 1;
+                                            cur = source[startPos];
+                                        }
+
+                                    }
+
+                                    else
+                                    {
+                                        cur = source[startPos--];
+                                        throw new ArgumentException($"Семантическая ошибка \n\nВведенное число не входит в диапазон 1...256");
+                                        cur = source[startPos++];
+                                    }
+                                }
+                                else
+                                {
+                                    throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: 1...9");
+                                }
+                            }
+                            else
+                            {
+                                throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: 1...9");
+                            }
+                        }
+                        break;
+
+                        //fчисло.число 
+                    case state.F: 
+                        {
+                            if (cur == ' ')
+                            {
+                                //пропускаем пробел 
+                            }
+
+                            else if (cur.IsNumber()) //ввели первую цифру 
+                            {
+                                //ЗАПИСЫВАЕМ ПЕРВУЮ КОНСТАНТУ
+                                if (cur != '0')
+                                {
+                                    one_const = "";
+                                    two_const = "";
+
+                                    while (cur.IsNumber() && startPos < source.Length + 1)
+                                    {
+                                        one_const += cur;
+                                        cur = source[startPos++];
+                                    }
+
+                                    //ЗАПИСЫВАЕМ ВТОРУЮ КОНСТАНТУ
+                                    if (Convert.ToInt32(one_const) > 0 && Convert.ToInt32(one_const) < 257)
+                                    {
+                                        if (cur == '.')
+                                        {
+                                            if (startPos < source.Length)
+                                            {
+                                                cur = source[startPos++];
+                                            }
+
+                                            while (cur.IsNumber() && startPos < source.Length + 1)
+                                            {
+                                                two_const += cur;
+                                                cur = source[startPos++];
+                                            }
+
+                                            if (Convert.ToInt32(two_const) > 0 && Convert.ToInt32(two_const) < 257)
+                                            {
+                                                if (Convert.ToInt32(one_const) > Convert.ToInt32(two_const) + 2)
+                                                {
+                                                    resStr += "F";
+                                                    int c = Convert.ToInt32(one_const) - 2 - Convert.ToInt32(two_const);
+                                                    for (int i = 0; i < c; i++)
+                                                    {
+                                                        resStr += "I";
+                                                    }
+                                                    resStr += ".";
+
+                                                    for (int i = 0; i < Convert.ToInt32(two_const); i++)
+                                                    {
+                                                        resStr += "I";
+                                                    }
+                                                    tek_sost = state.EndElement;
+                                                    if (startPos > 0)
+                                                    {
+                                                        startPos -= 1;
+                                                        cur = source[startPos];
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    throw new ArgumentException($"Семантическая ошибка \n\nКонстанта 1 должна быть больше (константа 2 + 2)");
+                                                }
+                                            }
+
+                                            else
+                                            {
+                                                throw new ArgumentException($"Семантическая ошибка \n\nВведенное число не входит в диапазон 1...256");
+                                            }
+                                        }
+
+                                        else
+                                        {
+                                            throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: '.'");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        throw new ArgumentException($"Семантическая ошибка \n\nВведенное число не входит в диапазон 1...256");
+                                    }
+                                }
+
+                                else
+                                {
+                                    throw new ArgumentException($"Семантическая ошибка \n\nОжидалось 1...9");
+                                }
+                            }
+                            else
+                            {
+                                throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: 1...9");
+                            }
+                        }
+                        break;
+
+
+                        //переход на новую строку
+                    case state.Enter:
+                        {
+                            int check = 1;
+                            while (cur == '/')
+                            {
+                                check += 1;
+                                cur = source[startPos++];
+                            }
+
+                            if (startPos > 0)
+                            {
+                                startPos -= 1;
+                                cur = source[startPos];
+                            }
+
+                            if (check < 4)
+                            {
+                                for (int i = 0; i < check; i++)
+                                {
+                                    resStr += Environment.NewLine;
+                                }
+                                tek_sost = state.EndElement;
+                            }
+
+
+                            else
+                            {
+                                throw new ArgumentException($"Семантическая ошибка \n\n Можно вводить не больше трёх символов '/'");
+                            }
+
+
+                            
+                            /*
+                            int check = 1;
+                            //resStr += Environment.NewLine;
+                            
+                            if (cur == ' ')
+                            {
+                                // Пропускаем пробелы
+                            }
+                            else if (cur == '/')
+                            {
+                                tek_sost = state.EndElement;
+
+                                while (cur == '/')
+                                {
+                                    check += 1;
+                                    cur = source[startPos++];
+                                }
+                                
+                                if (startPos > 0)
+                                {
+                                    startPos -= 1;
+                                    cur = source[startPos];
+                                }
+
+                                if(check < 4)
+                                {
+                                    for (int i = 0; i < check; i++)
+                                    {
+                                        resStr += Environment.NewLine;
+                                    }
+                                    tek_sost = state.EndElement;
+                                }
+
+                                else 
+                                {
+                                    throw new ArgumentException($"Семантическая ошибка \n\n Можно вводить не больше трёх символов '/'");
+                                }
+                            }
+                            else
+                            {
+                                // cur = source[startPos--];
+                                //throw new ArgumentException($"Синтаксическая ошибка \n\n Ожидалось '/'");
+                                // cur = source[startPos++];
+                                tek_sost = state.EndElement; 
+                            }
+                            /*
+                            if (cur == ' ')
+                            {
+                                //пропускаем пробел 
+                            }
+
+                            else if (cur == '/')
+                            {
+                                while (cur == '/')
+                                {
+                                    check += 1;
+                                    cur = source[startPos++];
+                                }
+
+                                if (startPos > 0)
+                                {
+                                    startPos -= 1;
+                                    cur = source[startPos];
+                                }
+
+                                if (check < 4)
+                                {
+                                    for (int i = 0; i < check; i++)
+                                    {
+                                        resStr += Environment.NewLine;
+                                    }
+                                    tek_sost = state.Enter;
+                                }
+
+                                else
+                                {
+                                    throw new ArgumentException($"Семантическая ошибка \n\n Можно вводить не больше трёх символов '/'");
+                                }
+                            }
+                            else
+                            {
+                                throw new ArgumentException($"Синтаксическая ошибка \n\n Ожидалось '/'");
+                            }*/
+
+                        }
+                        break; 
+
 
                     case state.EndElement:
                         {
