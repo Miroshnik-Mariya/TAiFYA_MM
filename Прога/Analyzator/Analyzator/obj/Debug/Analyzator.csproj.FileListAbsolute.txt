@@ -1,0 +1,41 @@
+C:\Users\alexg\Desktop\Теория автоматов\Прога\Analyzator\Analyzator\bin\Debug\Analyzator.exe.config
+C:\Users\alexg\Desktop\Теория автоматов\Прога\Analyzator\Analyzator\bin\Debug\Analyzator.exe
+C:\Users\alexg\Desktop\Теория автоматов\Прога\Analyzator\Analyzator\bin\Debug\Analyzator.pdb
+C:\Users\alexg\Desktop\Теория автоматов\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.csproj.AssemblyReference.cache
+C:\Users\alexg\Desktop\Теория автоматов\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.csproj.SuggestedBindingRedirects.cache
+C:\Users\alexg\Desktop\Теория автоматов\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.Properties.Resources.resources
+C:\Users\alexg\Desktop\Теория автоматов\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.csproj.GenerateResource.cache
+C:\Users\alexg\Desktop\Теория автоматов\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.csproj.CoreCompileInputs.cache
+C:\Users\alexg\Desktop\Теория автоматов\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.exe
+C:\Users\alexg\Desktop\Теория автоматов\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.pdb
+C:\Users\alexg\Desktop\Теория автоматов\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.Form1.resources
+C:\Users\79033\Downloads\Прога\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.csproj.AssemblyReference.cache
+C:\Users\79033\Downloads\Прога\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.Form1.resources
+C:\Users\79033\Downloads\Прога\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.Properties.Resources.resources
+C:\Users\79033\Downloads\Прога\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.csproj.GenerateResource.cache
+C:\Users\79033\Downloads\Прога\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.csproj.CoreCompileInputs.cache
+C:\Users\79033\Downloads\Прога\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.exe
+C:\Users\79033\Downloads\Прога\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.pdb
+C:\Users\79033\Downloads\Прога\Прога\Analyzator\Analyzator\bin\Debug\Analyzator.exe.config
+C:\Users\79033\Downloads\Прога\Прога\Analyzator\Analyzator\bin\Debug\Analyzator.exe
+C:\Users\79033\Downloads\Прога\Прога\Analyzator\Analyzator\bin\Debug\Analyzator.pdb
+E:\Прога\Прога\Analyzator\Analyzator\bin\Debug\Analyzator.exe.config
+E:\Прога\Прога\Analyzator\Analyzator\bin\Debug\Analyzator.exe
+E:\Прога\Прога\Analyzator\Analyzator\bin\Debug\Analyzator.pdb
+E:\Прога\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.csproj.AssemblyReference.cache
+E:\Прога\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.Form1.resources
+E:\Прога\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.Properties.Resources.resources
+E:\Прога\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.csproj.GenerateResource.cache
+E:\Прога\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.csproj.CoreCompileInputs.cache
+E:\Прога\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.exe
+E:\Прога\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.pdb
+E:\Прога новая версия\Прога\Analyzator\Analyzator\bin\Debug\Analyzator.exe.config
+E:\Прога новая версия\Прога\Analyzator\Analyzator\bin\Debug\Analyzator.exe
+E:\Прога новая версия\Прога\Analyzator\Analyzator\bin\Debug\Analyzator.pdb
+E:\Прога новая версия\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.csproj.AssemblyReference.cache
+E:\Прога новая версия\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.Form1.resources
+E:\Прога новая версия\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.Properties.Resources.resources
+E:\Прога новая версия\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.csproj.GenerateResource.cache
+E:\Прога новая версия\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.csproj.CoreCompileInputs.cache
+E:\Прога новая версия\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.exe
+E:\Прога новая версия\Прога\Analyzator\Analyzator\obj\Debug\Analyzator.pdb

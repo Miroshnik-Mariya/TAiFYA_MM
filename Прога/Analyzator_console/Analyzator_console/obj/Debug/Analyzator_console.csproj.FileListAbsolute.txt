@@ -1,0 +1,8 @@
+C:\Users\alexg\Desktop\Теория автоматов\Прога\Analyzator_console\Analyzator_console\bin\Debug\Analyzator_console.exe.config
+C:\Users\alexg\Desktop\Теория автоматов\Прога\Analyzator_console\Analyzator_console\bin\Debug\Analyzator_console.exe
+C:\Users\alexg\Desktop\Теория автоматов\Прога\Analyzator_console\Analyzator_console\bin\Debug\Analyzator_console.pdb
+C:\Users\alexg\Desktop\Теория автоматов\Прога\Analyzator_console\Analyzator_console\obj\Debug\Analyzator_console.csproj.AssemblyReference.cache
+C:\Users\alexg\Desktop\Теория автоматов\Прога\Analyzator_console\Analyzator_console\obj\Debug\Analyzator_console.csproj.SuggestedBindingRedirects.cache
+C:\Users\alexg\Desktop\Теория автоматов\Прога\Analyzator_console\Analyzator_console\obj\Debug\Analyzator_console.csproj.CoreCompileInputs.cache
+C:\Users\alexg\Desktop\Теория автоматов\Прога\Analyzator_console\Analyzator_console\obj\Debug\Analyzator_console.exe
+C:\Users\alexg\Desktop\Теория автоматов\Прога\Analyzator_console\Analyzator_console\obj\Debug\Analyzator_console.pdb

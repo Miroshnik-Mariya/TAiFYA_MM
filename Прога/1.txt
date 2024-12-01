@@ -1,0 +1,133 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Analyzator_console
+{
+    
+    internal class Program
+    {
+        enum Type_Reserv
+        {
+            TYPE, 
+            CARDINAL, 
+            INTEGER, 
+            REAL, 
+            CHAR, 
+            BOOLEAN,
+            ARRAY, 
+            OF, 
+            TO, 
+            POINTER
+        }
+        enum Alphabet
+        {
+            a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z,
+            A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z
+        }
+        static void Main(string[] args)
+        {
+            string s1, s2;
+            Console.WriteLine("Проверка индентификатора");
+            s2 = Console.ReadLine();
+
+            // Функция, возращаемая элемент без пробелов и остальную часть            
+            string sentence = s2;
+            string firstWord = GetFirstWord(sentence);
+            string restOfSentence = GetRestOfSentence(sentence);
+
+            // Функция, возвращаемая правильность индетификатора
+            if (RightIdentifikator(firstWord) == true) Console.WriteLine("Y");
+            else Console.WriteLine("N");
+
+            // Функция, возвращаемая правильность константы
+            if (RightConst(firstWord) == true) Console.WriteLine("Y");
+            else Console.WriteLine("N");
+
+            Console.WriteLine("Первое слово: " + firstWord);
+            Console.WriteLine("Остальное предложение: " + restOfSentence);
+            Console.ReadLine();
+        }
+
+
+
+        static string GetFirstWord(string sentence)
+        {
+            // Удаление знаков препинания и лишних пробелов
+            string cleanedSentence = sentence.Replace(",", "").Replace(".", "").Trim();
+
+            // Разделение предложения на слова
+            string[] words = cleanedSentence.Split(' ');
+
+            // Возвращение первого слова
+            return words[0];
+        }
+
+        static string GetRestOfSentence(string sentence)
+        {
+            // Удаление лишних пробелов в начале и конце предложения
+            sentence = sentence.Trim();
+
+            // Разделение предложения на слова
+            string[] words = sentence.Split(' ');
+
+            // Объединение оставшихся слов в предложение
+            string restOfSentence = string.Join(" ", words, 1, words.Length - 1);
+
+            return restOfSentence;
+        }
+        static bool RightIdentifikator(string identifikator)
+        {
+            char[] ident_ch = identifikator.ToCharArray();
+            if (char.IsLetter(ident_ch[0]))
+            {
+                for (int i = 0; i < ident_ch.Length; i++)
+                {
+                    if (i == 8) return false;
+
+                    if (char.IsLetter(ident_ch[i]) || char.IsNumber(ident_ch[i]))
+                    {
+
+                    }
+                    else return false;
+                }
+            }
+            else return false;
+            if (Enum.IsDefined(typeof(Type_Reserv), identifikator.ToUpper())) return false;
+            return true;
+        }
+        static bool RightConst(string constanta)
+        {
+            char[] ident_ch = constanta.ToCharArray();
+            if (char.IsNumber(ident_ch[0]) && ident_ch[0] != '0')
+            {
+                for (int i = 0; i < ident_ch.Length; i++)
+                {
+                    if (char.IsNumber(ident_ch[0]))
+                    {
+
+                    }
+                    else return false;
+                }
+            }
+            else return false;
+            int ch = Convert.ToInt32(constanta);
+            if (ch < 1 || ch > 256) return false;
+            return true;
+        }
+        static bool RightProstoyType(string prostoy_type)
+        {
+            if (prostoy_type == "CARDINAL" ||
+                prostoy_type == "INTEGER" ||
+                prostoy_type == "REAL" ||
+                prostoy_type == "CHAR" ||
+                prostoy_type == "BOOLEAN") return true;
+            return false;
+        }
+    }
+
+}
+TYPE GF = ARRAY [ 7 .. 78 ], [ 98 .. 255 ] OF CHAR, G = POINTER TO BOOLEAN;
+TYPE G45F = Cardinal, G2 = POINTER TO char, t54 = Array [2..22] of Integer;
