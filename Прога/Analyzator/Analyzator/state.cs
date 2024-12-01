@@ -10,7 +10,7 @@
         X, 
         T, 
         I, 
-        F, 
+        F, F1, F2, 
         Enter, 
         E, 
         Finish,

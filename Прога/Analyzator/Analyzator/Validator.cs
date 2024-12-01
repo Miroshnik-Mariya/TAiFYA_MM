@@ -20,21 +20,20 @@ namespace Analyzator
 
             string main_const = "";
 
-
             state tek_sost = state.S;
-            /*
-            bool elementFlag = false;
-            bool end = false;
-            */
 
 
-            while (tek_sost != state.Finish && tek_sost != state.E && startPos < source.Length) // основной цикл 
+
+            // основной цикл
+            while (tek_sost != state.Finish && tek_sost != state.E && startPos < source.Length)  
             {
 
                 cur = source[startPos++];
                 switch (tek_sost)
                 {
                     //FORMAT
+
+                    /*
                     case state.S:
                         {
                             if (cur == ' ')
@@ -111,13 +110,71 @@ namespace Analyzator
                             }
                         }
                         break;
+                    */
 
-                    //обязательный пробел 
-                    case state.B:
+                    case state.S:
                         {
                             if (cur == ' ')
                             {
-                                tek_sost = state.C;
+                                // Пропускаем пробел
+                            }
+                            else if (cur == 'f')
+                            {
+                                cur = source[startPos++];
+                                if (cur == 'o') 
+                                {
+                                    cur = source[startPos++];
+                                    if (cur == 'r')
+                                    {
+                                        cur = source[startPos++];
+                                        if (cur == 'm')
+                                        {
+                                            cur = source[startPos++];
+                                            if (cur == 'a')
+                                            {
+                                                cur = source[startPos++];
+                                                if (cur == 't')
+                                                {
+                                                    tek_sost = state.A; 
+                                                }
+                                                else
+                                                {
+                                                    throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: T \nВ слове: FORMAT");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: A \nВ слове: FORMAT");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: M \nВ слове: FORMAT");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: R \nВ слове: FORMAT");
+                                    }
+                                }
+                                else 
+                                {
+                                    throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: O \nВ слове: FORMAT");
+                                }
+                            }
+                            else
+                            {
+                                throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: F \nВ слове: FORMAT");
+                            }
+                        }
+                        break; 
+
+                    //обязательный пробел 
+                    case state.A:
+                        {
+                            if (cur == ' ')
+                            {
+                                tek_sost = state.B;
                             }
                             else
                             {
@@ -127,7 +184,7 @@ namespace Analyzator
                         break;
 
                     //открывающая круглая скобка + обработка необязательных пробелов 
-                    case state.C:
+                    case state.B:
                         {
                             if (cur == ' ')
                             {
@@ -135,7 +192,7 @@ namespace Analyzator
                             }
                             else if (cur == '(')
                             {
-                                tek_sost = state.C2D;
+                                tek_sost = state.C;
                             }
                             else
                             {
@@ -144,7 +201,7 @@ namespace Analyzator
                         }
                         break;
 
-                    case state.C2D:
+                    case state.C:
                         {
                             if (cur == ' ')
                             {
@@ -454,6 +511,7 @@ namespace Analyzator
                         break;
 
 
+
                         //переход на новую строку
                     case state.Enter:
                         {
@@ -503,7 +561,7 @@ namespace Analyzator
 
                             else if (cur == ',')
                             {
-                                tek_sost = state.C2D;
+                                tek_sost = state.C;
                             }
 
                             else { throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: ) или ,"); }
