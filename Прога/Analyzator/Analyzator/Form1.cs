@@ -99,7 +99,7 @@ namespace Analyzator
                 "X – пробелы, обозначаются подчеркиванием;\r\n\n" +
                 "F – обозначение места для знака числа;\r\n\n" +
                 "I – обозначение места для цифры.\r\n\n",
-                "Формат", MessageBoxButtons.OK);
+                "Вид правильной строки", MessageBoxButtons.OK);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -117,8 +117,10 @@ namespace Analyzator
                 "’текст’ -текст;\r\n" +
                 " X – пробелы, обозначаются подчеркиванием;\r\n" +
                 "F – обозначение места для знака числа;\r\n" +
-                "I – обозначение места для цифры.\r\n",
-                "Семантика", MessageBoxButtons.OK);
+                "I – обозначение места для цифры.\r\n\n"+
+                "Пример правильной цепочки:\r\n" +
+                "FORMAT  ( 2X, ‘ALMN’, 12X, F10.4, ///, ‘lm’, /, I6)",
+                "Вид семантики и правильных цепочек", MessageBoxButtons.OK);
         }
 
         private void listBox_ident_SelectedIndexChanged(object sender, EventArgs e)
