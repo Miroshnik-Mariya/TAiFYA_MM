@@ -22,7 +22,7 @@ namespace Analyzator
 
             state tek_sost = state.S;
 
-
+            string cad = "";
 
             // основной цикл
             while (tek_sost != state.Finish && tek_sost != state.E && startPos < source.Length)  
@@ -543,9 +543,153 @@ namespace Analyzator
                                 throw new ArgumentException($"Семантическая ошибка \n\n Можно вводить не больше трёх символов '/'");
                             }
                         }
+                        break;
+
+
+                    case state.int1: 
+                        {
+                            if (cur == ' ')
+                            {
+                                //пропускаем пробел 
+                            }
+
+                            else if (cur.IsNumber()) //ввели первую цифру 
+                            {
+                                //ЗАПИСЫВАЕМ КОНСТАНТУ
+                                if (cur != '0')
+                                {
+                                    main_const = "";
+                                    tek_sost = state.int2;
+                                }
+                               
+                                else
+                                {
+                                    throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: 1...9");
+                                }
+                            }
+                            else
+                            {
+                                throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: 1...9");
+                            }
+                        }
+                        break;
+
+
+                    case state.int2: 
+                        {
+                            while (cur.IsNumber() && startPos < source.Length + 1)
+                            {
+                                main_const += cur;
+                                cur = source[startPos++];
+                            }
+                        } 
+                        break;
+
+
+                    case state.int3:
+                        {
+                            if (Convert.ToInt32(main_const) > 0 && Convert.ToInt32(main_const) < 257)
+                            {
+                                resStr += "F";
+
+                                for (int i = 0; i < Convert.ToInt32(main_const) - 1; i++)
+                                {
+                                    resStr += "I";
+                                }
+
+                                tek_sost = state.EndElement;
+                                if (startPos > 0)
+                                {
+                                    startPos -= 1;
+                                    cur = source[startPos];
+                                }
+                            }
+
+                            else
+                            {
+                                cur = source[startPos--];
+                                throw new ArgumentException($"Семантическая ошибка \n\nВведенное число не входит в диапазон 1...256");
+                                cur = source[startPos++];
+                            }
+                        } 
+                        break;
+
+                    case state.text1:
+                        {
+                            cad = "";
+
+                            if (cur == ' ')
+                            {
+                                //пропускаем пробел 
+                            }
+
+                            else if (cur.IsLetter())
+                            {
+                                tek_sost = state.text2; 
+                            }
+
+                            else
+                            {
+                                throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидался символ Юникода");
+                            }
+                        }
+                        break;
+
+
+                    case state.text2: 
+                        {
+                            while (cur.IsLetter() && startPos < source.Length + 1 && cur != '\'' || cur == ' ')
+                            {
+                                if (startPos < source.Length)
+                                {
+                                    if (cur == ' ')
+                                    {
+                                        cur = source[startPos++];
+                                    }
+                                    else
+                                    {
+                                        cad += cur;
+                                        cur = source[startPos++];
+                                    }
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+
+                            
+                        }
+                        break;
+
+
+                    case state.text3: {
+                            if (cur == '\'')
+                            {
+                                tek_sost = state.EndElement;
+                            }
+                            else
+                            {
+                                throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ. \n\nОжидалась закрывающая кавычка \'");
+                            }
+                        }
+                        break;
+
+                    case state.text4: {
+                            cur = source[startPos--];
+                            if (cad.Length < 51)
+                            {
+                                resStr += cad;
+                            }
+                            else
+                            {
+                                throw new ArgumentException($"Семантическая ошибка: \n\n длина текста не может быть более 50 символов");
+                            }
+                            cur = source[startPos++];
+                        }
                         break; 
 
-                        //окончание ввода одного элемента
+                    //окончание ввода одного элемента
                     case state.EndElement:
                         {
                             if (cur == ' ')
