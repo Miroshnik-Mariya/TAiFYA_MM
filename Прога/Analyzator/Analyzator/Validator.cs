@@ -477,24 +477,32 @@ namespace Analyzator
                                                 }
                                                 else
                                                 {
+                                                    cur = source[startPos--];
                                                     throw new ArgumentException($"Семантическая ошибка \n\nКонстанта 1 должна быть больше (константа 2 + 2)");
+                                                    cur = source[startPos++];
                                                 }
                                             }
 
                                             else
                                             {
+                                                cur = source[startPos--];
                                                 throw new ArgumentException($"Семантическая ошибка \n\nВведенное число не входит в диапазон 1...256");
+                                                cur = source[startPos++];
                                             }
                                         }
 
                                         else
                                         {
+                                            //cur = source[startPos--];
                                             throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: '.'");
+                                            //cur = source[startPos++];
                                         }
                                     }
                                     else
                                     {
+                                        cur = source[startPos--];
                                         throw new ArgumentException($"Семантическая ошибка \n\nВведенное число не входит в диапазон 1...256");
+                                        cur = source[startPos++];
                                     }
                                 }
 
@@ -505,6 +513,7 @@ namespace Analyzator
                             }
                             else
                             {
+                                //cur = source[startPos--];
                                 throw new ArgumentException($"Ошибка синтаксиса \n\nВведен некорректный символ: {cur}. \n\nОжидалось: 1...9");
                             }
                         }
@@ -515,28 +524,44 @@ namespace Analyzator
                         //переход на новую строку
                     case state.Enter:
                         {
-                            int check = 1;
-                            while (cur == '/')
+                            if (cur == '/')
                             {
-                                check += 1;
-                                cur = source[startPos++];
-                            }
-
-                            if (startPos > 0)
-                            {
-                                startPos -= 1;
-                                cur = source[startPos];
-                            }
-
-                            if (check < 4)
-                            {
-                                for (int i = 0; i < check; i++)
+                                int check = 1;
+                                while (cur == '/')
                                 {
-                                    resStr += Environment.NewLine;
+                                    check += 1;
+                                    cur = source[startPos++];
+                                    
+                                    while(cur==' ') 
+                                    {
+                                        cur = source[startPos++];
+                                    }
                                 }
-                                tek_sost = state.EndElement;
+
+                                if (startPos > 0)
+                                {
+                                    startPos -= 1;
+                                    cur = source[startPos];
+                                }
+
+                                if (check < 4)
+                                {
+                                    for (int i = 0; i < check; i++)
+                                    {
+                                        resStr += Environment.NewLine;
+                                    }
+                                    tek_sost = state.EndElement;
+                                }
+
+
+                                else
+                                {
+                                    throw new ArgumentException($"Семантическая ошибка \n\n Можно вводить не больше трёх символов '/'");
+                                }
                             }
 
+                            else if (cur==' ') 
+                            { }
 
                             else
                             {
@@ -559,7 +584,35 @@ namespace Analyzator
                                 if (cur != '0')
                                 {
                                     main_const = "";
-                                    tek_sost = state.int2;
+                                    while (cur.IsNumber() && startPos < source.Length + 1)
+                                    {
+                                        main_const += cur;
+                                        cur = source[startPos++];
+                                    }
+                                    if (Convert.ToInt32(main_const) > 0 && Convert.ToInt32(main_const) < 257)
+                                    {
+                                        resStr += "F";
+
+                                        for (int i = 0; i < Convert.ToInt32(main_const) - 1; i++)
+                                        {
+                                            resStr += "I";
+                                        }
+
+                                        tek_sost = state.EndElement;
+                                        if (startPos > 0)
+                                        {
+                                            startPos -= 1;
+                                            cur = source[startPos];
+                                        }
+                                    }
+
+                                    else
+                                    {
+                                        cur = source[startPos--];
+                                        throw new ArgumentException($"Семантическая ошибка \n\nВведенное число не входит в диапазон 1...256");
+                                        cur = source[startPos++];
+                                    }
+
                                 }
                                
                                 else
@@ -574,45 +627,6 @@ namespace Analyzator
                         }
                         break;
 
-
-                    case state.int2: 
-                        {
-                            while (cur.IsNumber() && startPos < source.Length + 1)
-                            {
-                                main_const += cur;
-                                cur = source[startPos++];
-                            }
-                        } 
-                        break;
-
-
-                    case state.int3:
-                        {
-                            if (Convert.ToInt32(main_const) > 0 && Convert.ToInt32(main_const) < 257)
-                            {
-                                resStr += "F";
-
-                                for (int i = 0; i < Convert.ToInt32(main_const) - 1; i++)
-                                {
-                                    resStr += "I";
-                                }
-
-                                tek_sost = state.EndElement;
-                                if (startPos > 0)
-                                {
-                                    startPos -= 1;
-                                    cur = source[startPos];
-                                }
-                            }
-
-                            else
-                            {
-                                cur = source[startPos--];
-                                throw new ArgumentException($"Семантическая ошибка \n\nВведенное число не входит в диапазон 1...256");
-                                cur = source[startPos++];
-                            }
-                        } 
-                        break;
 
                     case state.text1:
                         {
@@ -667,6 +681,16 @@ namespace Analyzator
                             if (cur == '\'')
                             {
                                 tek_sost = state.EndElement;
+                                cur = source[startPos--];
+                                if (cad.Length < 51)
+                                {
+                                    resStr += cad;
+                                }
+                                else
+                                {
+                                    throw new ArgumentException($"Семантическая ошибка: \n\n длина текста не может быть более 50 символов");
+                                }
+                                cur = source[startPos++];
                             }
                             else
                             {
@@ -674,20 +698,6 @@ namespace Analyzator
                             }
                         }
                         break;
-
-                    case state.text4: {
-                            cur = source[startPos--];
-                            if (cad.Length < 51)
-                            {
-                                resStr += cad;
-                            }
-                            else
-                            {
-                                throw new ArgumentException($"Семантическая ошибка: \n\n длина текста не может быть более 50 символов");
-                            }
-                            cur = source[startPos++];
-                        }
-                        break; 
 
                     //окончание ввода одного элемента
                     case state.EndElement:
