@@ -265,7 +265,7 @@ namespace Analyzator
 
                             else
                             {
-                                throw new ArgumentException($"Введен некорректный символ: {cur}. Ознакомьтесь с разделом 'Формат'");
+                                throw new ArgumentException($"Синтаксическая ошибка: введен некорректный символ: {cur}. Ознакомьтесь с разделом 'Формат'");
                             }
                         }
                         break;
@@ -305,9 +305,9 @@ namespace Analyzator
                                 //пропускаем пробел 
                             }
 
-                            else if (cur.IsLetter())
+                            else if (cur.IsLetter() || cur.IsNumber())
                             {
-                                while (cur.IsLetter() && startPos < source.Length + 1 && cur != '\'' || cur == ' ')
+                                while (cur.IsLetter() && startPos < source.Length + 1 && cur != '\'' || cur == ' ' || cur.IsNumber() && startPos < source.Length + 1 && cur != '\'' || cur == ' ')
                                 {
                                     if (startPos < source.Length)
                                     {
